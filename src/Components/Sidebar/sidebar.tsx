@@ -12,7 +12,6 @@ import { FaKey } from "react-icons/fa";
 import { TbBrandAppleFilled } from "react-icons/tb";
 import { BiSolidClinic } from "react-icons/bi";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { IoMdSettings } from "react-icons/io";
 
 type SidebarProps = {
   isSidebarOpen: boolean;
@@ -80,10 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, handleLogout }) => {
               <IoPersonAdd  className="text-blue-500" />
               <Link to="#">Add</Link>
             </li>
-            <li className="hover:bg-gray-700 p-1 text-gray-500  flex items-center gap-2 text-lg font-medium rounded-md">
-              <IoMdSettings  className="text-blue-500" />
-              <Link to="#">Settings</Link>
-            </li>
+           
             <li className="hover:bg-gray-700 p-1 text-gray-500  flex items-center gap-2 text-lg font-medium rounded-md">
               <RiLogoutCircleRLine  className="text-blue-500" />
               <button onClick={handleLogout} className="text-left">
