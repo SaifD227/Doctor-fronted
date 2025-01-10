@@ -121,7 +121,7 @@
 
 //       {/* Main Content */}
 //       <div className="flex-1 flex flex-col lg:ml-64 bg-gray-100">
-       
+
 //         {/* Navbar */}
 //         <header className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg px-6 py-4">
 //           <button
@@ -178,48 +178,52 @@
 
 
 
-
-
-
-
-
-// import  { useState, useEffect } from "react";
-// import Sidebar from "./Sidebar/sidebar"
+// import React, { useState, useEffect } from "react";
+// import Sidebar from "./Sidebar/sidebar";
 // import Navbar from "./Navbar/navbar";
 // import { useNavigate } from "react-router-dom";
 
-// const Welcome = () => {
+// const Welcome: React.FC = () => {
 //   const [isSidebarOpen, setSidebarOpen] = useState(false);
 //   const navigate = useNavigate();
 //   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-//   const handleLogout = () => {
-//     try {
-//       localStorage.clear();
-//       navigate("/");
-//     } catch (error) {
-//       console.error("Logout error:", error);
-//     }
-//   };
 
 //   useEffect(() => {
 //     const token = localStorage.getItem("authToken");
 //     setIsAuthenticated(!!token);
 //   }, []);
 
+//   const handleLogout = () => {
+//     try {
+//       localStorage.removeItem("authToken");
+//       setIsAuthenticated(false);
+//       navigate("/");
+//     } catch (error) {
+//       console.error("Logout error:", error);
+//     }
+//   };
+
 //   if (!isAuthenticated) {
-//     return <div>Error: You are not authorized to view this page.</div>;
+//     return (
+//       <div className="flex items-center justify-center h-screen bg-gray-200">
+//         <div className="p-4 bg-white shadow rounded">
+//           <p className="text-red-500 font-bold">
+//             Error: You are not authorized to view this page.
+//           </p>
+//         </div>
+//       </div>
+//     );
 //   }
 
 //   return (
 //     <div className="flex h-screen">
 //       <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
-//       <div className="flex-1 flex flex-col lg:ml-64 bg-gray-100">
-//         <Navbar
-//           isSidebarOpen={isSidebarOpen}
-//           setSidebarOpen={setSidebarOpen}
-//         />
-//         {/* Add your main page content here */}
+//       <div
+//         className={`flex-1 flex flex-col ${
+//           isSidebarOpen ? "lg:ml-64" : ""
+//         } bg-gray-100`}
+//       >
+//         <Navbar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
 //       </div>
 //       {isSidebarOpen && (
 //         <div
@@ -232,6 +236,76 @@
 // };
 
 // export default Welcome;
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import Sidebar from "./Sidebar/sidebar";
+// import Navbar from "./Navbar/navbar";
+// import { useNavigate } from "react-router-dom";
+
+// const Welcome: React.FC = () => {
+//   const [isSidebarOpen, setSidebarOpen] = useState(false);
+//   const navigate = useNavigate();
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem("authToken");
+//     setIsAuthenticated(!!token);
+
+//     // Redirect to login page if not authenticated
+//     if (!token) {
+//       navigate("/");
+//     }
+//   }, [navigate]);
+
+//   const handleLogout = () => {
+//     try {
+//       // Clear the auth token from localStorage
+//       localStorage.removeItem("authToken");
+//       setIsAuthenticated(false);
+//       // Navigate to the login page
+//       navigate("/");
+//     } catch (error) {
+//       console.error("Logout error:", error);
+//     }
+//   };
+
+//   if (!isAuthenticated) {
+//     return (
+//       <div className="flex items-center justify-center h-screen bg-gray-200">
+//         <div className="p-4 bg-white shadow rounded">
+//           <p className="text-red-500 font-bold">
+//             Error: You are not authorized to view this page.
+//           </p>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="flex h-screen">
+//       <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+//       <div
+//         className={`flex-1 flex flex-col ${isSidebarOpen ? "lg:ml-64" : ""} bg-gray-100`}
+//       >
+//         <Navbar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
+//       </div>
+//       {isSidebarOpen && (
+//         <div
+//           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
+//           onClick={() => setSidebarOpen(false)}
+//         ></div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Welcome;
+
+
 
 
 
@@ -248,12 +322,17 @@ const Welcome: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setIsAuthenticated(!!token);
-  }, []);
+
+    if (!token) {
+      navigate("/"); // Redirect to login if not authenticated
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
     try {
-      localStorage.clear();
-      navigate("/");
+      localStorage.removeItem("authToken");
+      setIsAuthenticated(false);
+      navigate("/"); // Redirect to login
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -263,7 +342,9 @@ const Welcome: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-200">
         <div className="p-4 bg-white shadow rounded">
-          <p className="text-red-500 font-bold">Error: You are not authorized to view this page.</p>
+          <p className="text-red-500 font-bold">
+            Error: You are not authorized to view this page.
+          </p>
         </div>
       </div>
     );
@@ -272,9 +353,10 @@ const Welcome: React.FC = () => {
   return (
     <div className="flex h-screen">
       <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
-      <div className={`flex-1 flex flex-col ${isSidebarOpen ? "lg:ml-64" : ""} bg-gray-100`}>
+      <div
+        className={`flex-1 flex flex-col ${isSidebarOpen ? "lg:ml-64" : ""} bg-gray-100`}
+      >
         <Navbar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
-        {/* Add your main page content here */}
       </div>
       {isSidebarOpen && (
         <div

@@ -27,8 +27,8 @@ const Login = () => {
       const data = await loginUser(credentials);
       console.log("Logged in successfully:", data);
 
-      setError(""); // Clear error message on success
-      navigate("/dashboard"); // Navigate immediately after success
+      setError("");
+      navigate("/dashboard");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError("Login failed. Please check your credentials.");
@@ -56,7 +56,6 @@ const Login = () => {
             width={100}
             height={100}
             className="rounded-full"
-         
           />
         </div>
         <div className="mr-4">
@@ -71,8 +70,13 @@ const Login = () => {
 
       <div className="w-3/4 mt-36 mx-auto p-6 bg-transparent rounded-lg shadow-inner">
         <h2 className="text-2xl font-bold text-center mb-6 flex justify-center items-center">
-          <img src={image} alt="image" width={100} height={50}
-             style={{ filter: "drop-shadow(0 0 0.75rem crimson)" }} />
+          <img
+            src={image}
+            alt="image"
+            width={100}
+            height={50}
+            style={{ filter: "drop-shadow(0 0 0.75rem crimson)" }}
+          />
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
