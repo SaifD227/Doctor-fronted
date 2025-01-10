@@ -6,6 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import image2 from "../assets/saif.jpg";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState<string>("");
@@ -48,13 +49,13 @@ const ForgetPassword = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center"
+      className="relative h-screen bg-cover bg-center flex items-center justify-center"
       style={{
-        backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR24OubI6ewFaoRXFEMUnHewHryVT8VY_zksQ&s)`,
-        filter: "brightness(1) contrast(1.2) saturate(1.2)",
+        backgroundImage: `url(${image2})`,
+        backgroundPosition: "0% -33%",
       }}
     >
-      <div className="absolute top-0 left-0 right-0 h-16 bg-opacity-60 bg-gray-300 text-white flex justify-between items-center">
+      <div className="absolute top-0 left-0 right-0 h-16  bg-black text-white flex justify-between items-center">
         <div className="mr-4 mx-4">
           <Link
             to="/"
@@ -68,7 +69,7 @@ const ForgetPassword = () => {
           <img
             src={image1}
             alt="Logo"
-            width={130}
+            width={100}
             height={100}
             className="rounded-full"
           />
@@ -78,7 +79,7 @@ const ForgetPassword = () => {
       <div className="w-3/4 mt-40 mx-auto p-6 bg-transparent rounded-lg shadow-inner">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="flex gap-1 items-center text-sm font-medium text-blue-700">
+            <label className="flex gap-1 items-center text-sm font-medium text-white">
               <MdEmail />
               Email:
             </label>
@@ -87,7 +88,7 @@ const ForgetPassword = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border-b-2 border-blue-700 focus:outline-none focus:border-blue-700 bg-transparent"
+              className="w-full px-4 py-2 border-b-2 border-white focus:outline-none  bg-transparent"
             />
           </div>
 

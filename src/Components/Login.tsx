@@ -5,6 +5,7 @@ import { IoLockClosed, IoLogInOutline } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../authService";
+import image2 from "../assets/saif.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -27,7 +28,7 @@ const Login = () => {
       console.log("Logged in successfully:", data);
 
       setError(""); // Clear error message on success
-      navigate("/welcome"); // Navigate immediately after success
+      navigate("/dashboard"); // Navigate immediately after success
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError("Login failed. Please check your credentials.");
@@ -41,19 +42,21 @@ const Login = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center"
+      className="relative h-screen bg-cover bg-center flex items-center justify-center"
       style={{
-        backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR24OubI6ewFaoRXFEMUnHewHryVT8VY_zksQ&s)`,
+        backgroundImage: `url(${image2})`,
+        backgroundPosition: "0% -33%",
       }}
     >
-      <div className="absolute top-0 left-0 right-0 h-16 bg-opacity-60 bg-gray-300 text-white flex justify-between items-center">
+      <div className="absolute top-0 left-0 right-0 h-16  bg-black text-white flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <img
             src={image1}
             alt="Logo"
-            width={130}
+            width={100}
             height={100}
             className="rounded-full"
+         
           />
         </div>
         <div className="mr-4">
@@ -68,11 +71,12 @@ const Login = () => {
 
       <div className="w-3/4 mt-36 mx-auto p-6 bg-transparent rounded-lg shadow-inner">
         <h2 className="text-2xl font-bold text-center mb-6 flex justify-center items-center">
-          <img src={image} alt="image" width={100} height={50} />
+          <img src={image} alt="image" width={100} height={50}
+             style={{ filter: "drop-shadow(0 0 0.75rem crimson)" }} />
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="flex gap-1 items-center text-sm font-medium text-blue-700">
+            <label className="flex gap-1 items-center text-sm font-medium text-white">
               <MdEmail />
               Email:
             </label>
@@ -81,11 +85,11 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border-b-2 border-blue-700 focus:outline-none focus:border-blue-700 bg-transparent"
+              className="w-full px-4 py-2 border-b-2 text-white border-white focus:outline-none  bg-transparent"
             />
           </div>
           <div>
-            <label className=" gap-1 items-center text-sm font-medium text-blue-700 flex">
+            <label className=" gap-1 items-center text-sm font-medium text-white flex">
               <IoLockClosed />
               Password:
             </label>
@@ -94,7 +98,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border-b-2 border-blue-700 focus:outline-none focus:border-blue-700 bg-transparent"
+              className="w-full px-4 py-2 border-b-2 text-white border-white focus:outline-none bg-transparent"
             />
           </div>
 
@@ -117,10 +121,10 @@ const Login = () => {
             )}
           </button>
         </form>
-        <div className="flex flex-col items-end text-blue-600 mt-4 text-sm font-medium">
+        <div className="flex flex-col items-end text-white mt-4 text-sm font-medium">
           <Link
             to="/forgetPassword"
-            className="hover:underline hover:text-blue-500 cursor-pointer"
+            className="hover:underline hover:text-white cursor-pointer"
           >
             Forget Password
           </Link>
@@ -150,9 +154,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-
-
