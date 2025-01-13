@@ -6,20 +6,17 @@ const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check for the JWT token
     const token = localStorage.getItem("authToken");
 
     if (token) {
-      // Token exists, user is authenticated
       setIsAuthenticated(true);
     } else {
-      // Token is not found, user is not authenticated
       setIsAuthenticated(false);
     }
   }, []);
 
   if (!isAuthenticated) {
-    return <div>Error: You are not authorized to view this page.</div>;
+    return <div className="flex-1 flex flex-col lg:ml-64 p-3 justify-center items-center">Error: You are not authorized to view this page.</div>;
   }
 
   return (

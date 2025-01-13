@@ -178,137 +178,6 @@
 
 
 
-// import React, { useState, useEffect } from "react";
-// import Sidebar from "./Sidebar/sidebar";
-// import Navbar from "./Navbar/navbar";
-// import { useNavigate } from "react-router-dom";
-
-// const Welcome: React.FC = () => {
-//   const [isSidebarOpen, setSidebarOpen] = useState(false);
-//   const navigate = useNavigate();
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("authToken");
-//     setIsAuthenticated(!!token);
-//   }, []);
-
-//   const handleLogout = () => {
-//     try {
-//       localStorage.removeItem("authToken");
-//       setIsAuthenticated(false);
-//       navigate("/");
-//     } catch (error) {
-//       console.error("Logout error:", error);
-//     }
-//   };
-
-//   if (!isAuthenticated) {
-//     return (
-//       <div className="flex items-center justify-center h-screen bg-gray-200">
-//         <div className="p-4 bg-white shadow rounded">
-//           <p className="text-red-500 font-bold">
-//             Error: You are not authorized to view this page.
-//           </p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="flex h-screen">
-//       <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
-//       <div
-//         className={`flex-1 flex flex-col ${
-//           isSidebarOpen ? "lg:ml-64" : ""
-//         } bg-gray-100`}
-//       >
-//         <Navbar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
-//       </div>
-//       {isSidebarOpen && (
-//         <div
-//           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
-//           onClick={() => setSidebarOpen(false)}
-//         ></div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Welcome;
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import Sidebar from "./Sidebar/sidebar";
-// import Navbar from "./Navbar/navbar";
-// import { useNavigate } from "react-router-dom";
-
-// const Welcome: React.FC = () => {
-//   const [isSidebarOpen, setSidebarOpen] = useState(false);
-//   const navigate = useNavigate();
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("authToken");
-//     setIsAuthenticated(!!token);
-
-//     // Redirect to login page if not authenticated
-//     if (!token) {
-//       navigate("/");
-//     }
-//   }, [navigate]);
-
-//   const handleLogout = () => {
-//     try {
-//       // Clear the auth token from localStorage
-//       localStorage.removeItem("authToken");
-//       setIsAuthenticated(false);
-//       // Navigate to the login page
-//       navigate("/");
-//     } catch (error) {
-//       console.error("Logout error:", error);
-//     }
-//   };
-
-//   if (!isAuthenticated) {
-//     return (
-//       <div className="flex items-center justify-center h-screen bg-gray-200">
-//         <div className="p-4 bg-white shadow rounded">
-//           <p className="text-red-500 font-bold">
-//             Error: You are not authorized to view this page.
-//           </p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="flex h-screen">
-//       <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
-//       <div
-//         className={`flex-1 flex flex-col ${isSidebarOpen ? "lg:ml-64" : ""} bg-gray-100`}
-//       >
-//         <Navbar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
-//       </div>
-//       {isSidebarOpen && (
-//         <div
-//           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
-//           onClick={() => setSidebarOpen(false)}
-//         ></div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Welcome;
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar/sidebar";
 import Navbar from "./Navbar/navbar";
@@ -324,7 +193,7 @@ const Welcome: React.FC = () => {
     setIsAuthenticated(!!token);
 
     if (!token) {
-      navigate("/"); // Redirect to login if not authenticated
+      navigate("/"); 
     }
   }, [navigate]);
 
@@ -332,7 +201,7 @@ const Welcome: React.FC = () => {
     try {
       localStorage.removeItem("authToken");
       setIsAuthenticated(false);
-      navigate("/"); // Redirect to login
+      navigate("/"); 
     } catch (error) {
       console.error("Logout error:", error);
     }

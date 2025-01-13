@@ -24,7 +24,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [qualification, setQualification] = useState("");
 
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ const SignUp = () => {
     };
 
     try {
-      // Call the sign-up API
+     
       const response = await signUpUser(formData);
       console.log("Response:", response);
 

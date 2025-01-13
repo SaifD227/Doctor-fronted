@@ -2,7 +2,30 @@
 import { FaEdit } from "react-icons/fa";
 import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import { Link } from "react-router-dom";
-const clinic = () => {
+import { useState } from "react";
+import { useEffect } from "react";
+
+
+const Clinic = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check for the JWT token
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      // Token exists, user is authenticated
+      setIsAuthenticated(true);
+    } else {
+      // Token is not found, user is not authenticated
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  if (!isAuthenticated) {
+    return <div className="flex-1 flex flex-col lg:ml-64 p-3 justify-center items-center">Error: You are not authorized to view this page.</div>;
+  }
+
   return (
     <div className="flex-1 flex flex-col lg:ml-64 p-3">
       <div className=" p-6  bg-white shadow-xl rounded-md ">
@@ -47,4 +70,6 @@ const clinic = () => {
   );
 };
 
-export default clinic;
+export default Clinic;
+
+
