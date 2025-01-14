@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, handleLogout }) => {
             {/* Alerts */}
             <li className="hover:bg-gray-200 p-1 flex items-center gap-2 text-gray-500 text-xl font-medium rounded-md">
               <IoAlertSharp className="text-red-600" />
-              <Link to="/alerts">Alerts</Link>
+              <Link to="/alert">Alerts</Link>
             </li>
             {/* Messages */}
             <li className="hover:bg-gray-200 p-1 flex items-center text-gray-500 gap-2 text-xl font-medium rounded-md">
@@ -97,4 +97,3 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, handleLogout }) => {
 };
 
 export default Sidebar;
- 
