@@ -6,10 +6,9 @@ const Add = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
-  }, []);
+  });
 
   const countryPhoneCodes = {
     Pakistan: "+92",
@@ -96,7 +95,6 @@ const Add = () => {
 
     return true;
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -108,12 +106,11 @@ const Add = () => {
       ...formData,
       country: selectedCountry,
       city: selectedCity,
-      clinic_id: "64b6a6e2dabc3a4f8f8e5678",
-      user_id: "64b6a6e2dabc3a4f8f8e1234",
+      clinic_id: "64b6a6e2dabc3a4f8f8e5678", // Replace with actual clinic_id
+      user_id: "64b6a6e2dabc3a4f8f8e1234", // Replace with actual user_id
     };
 
     try {
-      setLoading(true); // Set loading true when making the request
       const response = await fetch("http://localhost:4000/api/patient", {
         method: "POST",
         headers: {
@@ -135,15 +132,13 @@ const Add = () => {
         plan: "",
         email: "",
         phone: "",
-      });
+      }); // Clear form after submission
     } catch (error) {
       if (error instanceof Error) {
         toast.error(`Error: ${error.message}`);
       } else {
         toast.error("An unknown error occurred.");
       }
-    } finally {
-      setLoading(false); // Set loading false after the request finishes
     }
   };
 
@@ -377,6 +372,7 @@ const Add = () => {
           </div>
         </>
       )}
+      ;
     </div>
   );
 };

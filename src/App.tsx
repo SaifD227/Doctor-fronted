@@ -19,7 +19,6 @@ import Patient from "./Components/Patients/patient";
 import Add from "./Components/Add/add";
 import Alert from "./Components/Alert/alert";
 
-
 // Mock authentication function
 const isAuthenticated = () => {
   return localStorage.getItem("authToken") !== null;
@@ -48,10 +47,8 @@ const App = () => {
             path="/clinic"
             element={<PrivateRoute element={<Clinic />} />}
           />
-          <Route
-            path="/clinic/edit"
-            element={<PrivateRoute element={<Edit />} />}
-          />
+
+          <Route path="/edit" element={<PrivateRoute element={<Edit />} />} />
           <Route
             path="/message"
             element={<PrivateRoute element={<Message />} />}
@@ -64,14 +61,8 @@ const App = () => {
             path="/patient"
             element={<PrivateRoute element={<Patient />} />}
           />
-            <Route
-            path="/add"
-            element={<PrivateRoute element={<Add />} />}
-          />
-             <Route
-            path="/alert"
-            element={<PrivateRoute element={<Alert />} />}
-          />
+          <Route path="/add" element={<PrivateRoute element={<Add />} />} />
+          <Route path="/alert" element={<PrivateRoute element={<Alert />} />} />
         </Route>
       </Routes>
     </Router>
