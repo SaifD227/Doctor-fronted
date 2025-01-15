@@ -18,6 +18,7 @@ import BrandAmount from "./Components/BrandInvertory/brand-inventory";
 import Patient from "./Components/Patients/patient";
 import Add from "./Components/Add/add";
 import Alert from "./Components/Alert/alert";
+import Vacation from "./Components/Vacation/vacation";
 
 // Mock authentication function
 const isAuthenticated = () => {
@@ -63,6 +64,7 @@ const App = () => {
           />
           <Route path="/add" element={<PrivateRoute element={<Add />} />} />
           <Route path="/alert" element={<PrivateRoute element={<Alert />} />} />
+          <Route path="/vacation" element={<PrivateRoute element={<Vacation />} />} />
         </Route>
       </Routes>
     </Router>

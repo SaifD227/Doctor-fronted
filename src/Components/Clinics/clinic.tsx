@@ -35,7 +35,7 @@ const Clinic = () => {
           </div>
           <div>
             <button>
-            <Link to="/clinic/edit" className="text-3xl text-blue-600">
+            <Link to="/edit" className="text-3xl text-blue-600">
               <FaEdit />
             </Link>
             </button>

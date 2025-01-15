@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, handleLogout }) => {
             {/* Vacations */}
             <li className="hover:bg-gray-200 p-1 flex items-center gap-2 text-gray-500 text-xl font-medium rounded-md">
               <MdHvac className="text-blue-500" />
-              <Link to="/vacations">Vacations</Link>
+              <Link to="/vacation">Vacations</Link>
             </li>
             {/* Change Password */}
             <li className="hover:bg-gray-200 p-1 flex items-center gap-2 text-gray-500 text-xl font-medium rounded-md">
