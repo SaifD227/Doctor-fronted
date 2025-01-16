@@ -1,17 +1,17 @@
-import image1 from "../../assets/3048127.png";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
-// import { MdDelete } from "react-icons/md";
 import { IoChatbox } from "react-icons/io5";
 import { MdCall } from "react-icons/md";
 import { IoIosMan } from "react-icons/io";
 import { SlCalender } from "react-icons/sl";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import image1 from "../../assets/3048127.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Define the patient data type
 interface Patient {
-  id: string;
+  _id: string;
   patientName: string;
   gender: string;
   dob: string;
@@ -24,19 +24,41 @@ const Patient = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/api/patient");
-        const data = await response.json();
-        setPatients(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching patient data:", error);
-        setLoading(false);
-      }
-    };
     fetchPatients();
   }, []);
+
+
+
+  const fetchPatients = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/patient");
+      const data = await response.json();
+      setPatients(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+      setLoading(false);
+    }
+  };
+  const handleDeletePatient = async (id: string) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/patient/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setPatients((prevPatients) =>
+          prevPatients.filter((patient) => patient._id !== id)
+        );
+        toast.success("Patient deleted successfully");
+      } else {
+        toast.error("Error deleting patient");
+        console.error("Error deleting patient");
+      }
+    } catch (error) {
+      toast.error("Error deleting patient");
+      console.error("Error deleting patient:", error);
+    }
+  };
 
   return (
     <div className="flex-1 flex flex-col lg:ml-64 p-3">
@@ -59,7 +81,7 @@ const Patient = () => {
 
           {patients.map((patient) => (
             <div
-              key={patient.id}
+              key={patient._id}
               className="border-4 border-blue-600 p-4 rounded-lg mt-4 shadow-lg"
             >
               <div className="p-2 flex justify-between items-center">
@@ -76,15 +98,16 @@ const Patient = () => {
                   </p>
                 </div>
                 <div className="flex gap-6 text-xl text-blue-600">
-                  <Link to="/edit">
+                  <Link to={`/edit1/${patient._id}`}>
                     <FaRegEdit className="cursor-pointer text-3xl" />
                   </Link>
 
-                  <button className="text-3xl">
-                    <DeleteConfirmationModal />
-                  </button>
+                  <DeleteConfirmationModal
+                    onDelete={handleDeletePatient}
+                    patientId={patient._id}
+                  />
                   <button>
-                    <IoChatbox className="cursor-pointe text-3xl" />
+                    <IoChatbox className="cursor-pointer text-3xl" />
                   </button>
                 </div>
               </div>
@@ -120,6 +143,7 @@ const Patient = () => {
           ))}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

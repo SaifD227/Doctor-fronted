@@ -2,22 +2,25 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { Dialog, DialogActions, DialogTitle, Button } from "@mui/material";
 
-const DeleteConfirmationModal = () => {
+
+interface DeleteConfirmationModalProps {
+  onDelete: (id: string) => void;
+  patientId: string;
+}
+
+const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ onDelete, patientId }) => {
   const [open, setOpen] = useState(false);
 
-  // Open the modal
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  // Close the modal
   const handleClose = () => {
     setOpen(false);
   };
 
-  // Handle delete action
   const handleDelete = () => {
-    console.log("Item deleted");
+    onDelete(patientId);  
     handleClose();
   };
 

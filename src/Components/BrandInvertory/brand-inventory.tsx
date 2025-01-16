@@ -120,3 +120,10 @@ const BrandInventory = () => {
 };
 
 export default BrandInventory;
+
+
+
+
+
+
+

@@ -24,7 +24,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [qualification, setQualification] = useState("");
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +40,6 @@ const SignUp = () => {
     };
 
     try {
-     
       const response = await signUpUser(formData);
       console.log("Response:", response);
 

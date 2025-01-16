@@ -29,3 +29,12 @@ export interface LoginResponse {
     phoneNumber: string;
   };
 }
+
+export interface Patient {
+  _id: string;
+  patientName: string;
+  gender: string;
+  dob: string;
+  phone: string;
+  image?: string;
+}

@@ -1,6 +1,7 @@
 // import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Edit = () => {
   const [mondayChecked, setMondayChecked] = useState(false); // Monday switch state
@@ -26,7 +27,7 @@ const Edit = () => {
   return (
     <div className="flex-1 flex flex-col lg:ml-64 p-3">
       <div className="p-4 w-full mx-auto">
-        <p className="text-2xl font-bold text-blue-600 mb-4">Edit Details</p>
+        <Link to="/clinic" className="text-2xl font-bold text-blue-600 mb-4">Edit Details</Link>
         <form className="space-y-6">
           {/* Name */}
           <div>
