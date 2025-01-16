@@ -20,6 +20,7 @@ import Add from "./Components/Add/add";
 import Alert from "./Components/Alert/alert";
 import Vacation from "./Components/Vacation/vacation";
 import EditPatient from "./Components/EditPatient/Edit";
+import Schedule from "./Components/Schedule/schedule";
 
 
 // Mock authentication function
@@ -70,6 +71,10 @@ const App = () => {
             <Route
             path="/edit1/:id"
             element={<PrivateRoute element={<EditPatient />} />}
+          />
+              <Route
+            path="/schedule"
+            element={<PrivateRoute element={<Schedule />} />}
           />
         
          
