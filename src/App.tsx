@@ -21,7 +21,7 @@ import Alert from "./Components/Alert/alert";
 import Vacation from "./Components/Vacation/vacation";
 import EditPatient from "./Components/EditPatient/Edit";
 import Schedule from "./Components/Schedule/schedule";
-
+import Password from "./Components/Password/password";
 
 // Mock authentication function
 const isAuthenticated = () => {
@@ -53,7 +53,7 @@ const App = () => {
           />
 
           <Route
-            path="/clinic/edit"
+            path="/clinic/edit/:clinicId"
             element={<PrivateRoute element={<Edit />} />}
           />
           <Route
@@ -68,16 +68,19 @@ const App = () => {
             path="/patient"
             element={<PrivateRoute element={<Patient />} />}
           />
-            <Route
+          <Route
             path="/edit1/:id"
             element={<PrivateRoute element={<EditPatient />} />}
           />
-              <Route
+          <Route
             path="/schedule"
             element={<PrivateRoute element={<Schedule />} />}
           />
-        
-         
+          <Route
+            path="/password"
+            element={<PrivateRoute element={<Password />} />}
+          />
+
           <Route path="/add" element={<PrivateRoute element={<Add />} />} />
           <Route path="/alert" element={<PrivateRoute element={<Alert />} />} />
           <Route

@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, handleLogout }) => {
             {/* Change Password */}
             <li className="hover:bg-gray-200 p-1 flex items-center gap-2 text-gray-500 text-xl font-medium rounded-md">
               <FaKey className="text-blue-500" />
-              <Link to="/change-password">Change Password</Link>
+              <Link to="/password">Change Password</Link>
             </li>
             {/* Brand Inventory */}
             <li className="hover:bg-gray-200 p-1 flex items-center gap-2 text-gray-500 text-xl font-medium rounded-md">

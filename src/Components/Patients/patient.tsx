@@ -27,8 +27,6 @@ const Patient = () => {
     fetchPatients();
   }, []);
 
-
-
   const fetchPatients = async () => {
     try {
       const response = await fetch("http://localhost:4000/api/patient");
