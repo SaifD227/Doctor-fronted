@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdAdd } from "react-icons/md";
 
 interface ClinicData {
   _id: string;
@@ -73,7 +74,10 @@ const Clinic = () => {
   return (
     <div className="flex-1 flex flex-col lg:ml-64 p-3">
       {clinics.map((clinic) => (
-        <div key={clinic._id} className="p-6 bg-white shadow-xl rounded-md mb-4">
+        <div
+          key={clinic._id}
+          className="p-6 bg-white shadow-xl rounded-md mb-4"
+        >
           <div className="flex justify-between border-b-2 border-gray-500">
             <div>
               <p>{clinic.name}</p>
@@ -117,9 +121,14 @@ const Clinic = () => {
         </div>
       ))}
       <ToastContainer />
+      <div className="flex justify-end mt-40">
+        <button className="bg-gradient-to-r from-blue-500 to-blue-700 py-3 px-10 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-500 hover:scale-105 transition-transform duration-300 flex items-center space-x-2">
+          <span>New Clinic</span>
+          <MdAdd className="text-xl" />
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Clinic;
-
