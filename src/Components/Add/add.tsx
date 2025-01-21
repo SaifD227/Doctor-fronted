@@ -143,7 +143,7 @@ const Add = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-3">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
       {loading ? (
         // Spinner while loading
         <div className="flex justify-center items-center h-screen">

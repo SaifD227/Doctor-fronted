@@ -9,7 +9,7 @@ const Message = () => {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64">
       {loading ? (
         <div className="flex justify-center items-center h-screen">
           <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>

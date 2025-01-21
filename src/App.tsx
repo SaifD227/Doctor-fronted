@@ -23,6 +23,7 @@ import EditPatient from "./Components/EditPatient/Edit";
 import Schedule from "./Components/Schedule/schedule";
 import Password from "./Components/Password/password";
 
+
 // Mock authentication function
 const isAuthenticated = () => {
   return localStorage.getItem("authToken") !== null;
@@ -80,6 +81,7 @@ const App = () => {
             path="/password"
             element={<PrivateRoute element={<Password />} />}
           />
+          
 
           <Route path="/add" element={<PrivateRoute element={<Add />} />} />
           <Route path="/alert" element={<PrivateRoute element={<Alert />} />} />

@@ -1,6 +1,6 @@
 const Vacation = () => {
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-6">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-6">
       <div className="bg-white shadow-lg rounded-lg p-6 space-y-6">
         {/* Date Inputs */}
         <div className="flex space-x-4">

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Schedule: React.FC = () => {
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-3">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
       <div className="flex items-center justify-between  p-2  border-b border-gray-400">
         <label htmlFor="bcg-checkbox" className="flex items-center">
           <input 

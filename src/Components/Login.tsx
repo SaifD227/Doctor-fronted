@@ -73,8 +73,8 @@ const Login = () => {
           <img
             src={image}
             alt="image"
-            width={100}
-            height={50}
+            width={140}
+            height={4}
             style={{ filter: "drop-shadow(0 0 0.75rem crimson)" }}
           />
         </h2>

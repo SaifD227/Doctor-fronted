@@ -108,7 +108,7 @@ const Edit = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-3">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
       <div className="p-4 w-full mx-auto">
         <Link to="/clinic" className="text-2xl font-bold text-blue-600 mb-4">
           Edit Details

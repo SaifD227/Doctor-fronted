@@ -83,7 +83,7 @@ const Edit = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-3">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
       <h1 className="text-2xl font-bold mb-4">Edit Patient</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Name */}

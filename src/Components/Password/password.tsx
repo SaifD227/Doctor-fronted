@@ -78,7 +78,7 @@ const Password: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64 p-3">
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
           <label htmlFor="oldPassword" className="block text-blue-500 text-sm font-medium mb-1">

@@ -1,4 +1,4 @@
-import image1 from "../../assets/vacn2.webp";
+import image1 from "../../assets/gfdg.jpg";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
@@ -37,7 +37,7 @@ const Dashboard = () => {
             <img
               src={image1}
               alt="Vaccination Logo"
-              className="w-full h-[250px] object-cover"
+              className="w-full  object-cover"
             />
           </div>
           <div className="text-center text-white text-2xl p-2 bg-blue-300">
