@@ -22,14 +22,14 @@ import Vacation from "./Components/Vacation/vacation";
 import EditPatient from "./Components/EditPatient/Edit";
 import Schedule from "./Components/Schedule/schedule";
 import Password from "./Components/Password/password";
-
+import NewClinic from "./Components/Clinics/NewClinic";
+import VaccineAlert from "./Components/Alert/vaccinealert";
 
 // Mock authentication function
 const isAuthenticated = () => {
   return localStorage.getItem("authToken") !== null;
 };
 
-// Private Route Component
 const PrivateRoute = ({ element }: { element: JSX.Element }) => {
   return isAuthenticated() ? element : <Navigate to="/" replace />;
 };
@@ -81,10 +81,23 @@ const App = () => {
             path="/password"
             element={<PrivateRoute element={<Password />} />}
           />
-          
+          <Route
+            path="/newClinic"
+            element={<PrivateRoute element={<NewClinic />} />}
+          />
+          <Route
+            path="/alert/vaccinealert"
+            element={<PrivateRoute element={<VaccineAlert />} />}
+          />
 
           <Route path="/add" element={<PrivateRoute element={<Add />} />} />
-          <Route path="/alert" element={<PrivateRoute element={<Alert />} />} />
+          <Route path="/alert" element={<PrivateRoute element={<Alert />} />}>
+          <Route
+              path="/alert/vaccinealert"
+              element={<PrivateRoute element={<VaccineAlert />} />}
+            />
+          </Route>
+          
           <Route
             path="/vacation"
             element={<PrivateRoute element={<Vacation />} />}

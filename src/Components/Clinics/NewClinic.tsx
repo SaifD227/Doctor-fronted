@@ -1,160 +1,279 @@
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import TextField from "@mui/material/TextField";
-import { MdAdd } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import Switch from "@mui/material/Switch";
+import { Link } from "react-router-dom";
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+interface ClinicData {
+  name: string;
+  consultation_fee: number;
+  phone_number: string;
+  address: string;
+  is_online: boolean;
+  monogram_image: string;
+}
 
-const CustomizedDialogs = () => {
-  const [open, setOpen] = useState(false);
-  const [clinicDetails, setClinicDetails] = useState({
+const DAYS = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const NewClinic = () => {
+  const [daysChecked, setDaysChecked] = useState(
+    DAYS.reduce(
+      (acc, day) => ({ ...acc, [day]: false }),
+      {} as Record<string, boolean>
+    )
+  );
+  const [sessionsChecked, setSessionsChecked] = useState(
+    DAYS.reduce(
+      (acc, day) => ({
+        ...acc,
+        [day]: { session1: false, session2: false },
+      }),
+      {} as Record<string, { session1: boolean; session2: boolean }>
+    )
+  );
+
+  const [clinic, setClinic] = useState<ClinicData>({
     name: "",
+    consultation_fee: 0,
     phone_number: "",
     address: "",
-    consultation_fee: "",
+    is_online: false,
+    monogram_image: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setClinicDetails({
-      ...clinicDetails,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSave = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/clinic", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...clinicDetails,
-          latitude: 34.0522,
-          longitude: -118.2437,
-          is_online: true,
-          monogram_image: "https://example.com/image.jpg",
-          doctor_id: "60b8d2951f8b7f1f0c1d2c8f",
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Clinic saved successfully:", data);
-        setClinicDetails({
-          name: "",
-          phone_number: "",
-          address: "",
-          consultation_fee: "",
-        });
-        handleClose();
-      } else {
-        console.error("Failed to save clinic:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error saving clinic:", error);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setPreviewUrl(null);
+  };
+
+  const handleDayToggle = (day: string, checked: boolean) => {
+    setDaysChecked((prev) => ({ ...prev, [day]: checked }));
+  };
+
+  const handleSessionToggle = (
+    day: string,
+    session: "session1" | "session2",
+    checked: boolean
+  ) => {
+    setSessionsChecked((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], [session]: checked },
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const clinicData = {
+      name: clinic.name,
+      consultation_fee: clinic.consultation_fee,
+      latitude: 34.0522, // Replace with actual latitude
+      longitude: -118.2437, // Replace with actual longitude
+      phone_number: clinic.phone_number,
+      is_online: clinic.is_online,
+      address: clinic.address,
+      monogram_image: previewUrl || "https://example.com/default-image.jpg",
+      doctor_id: "60b8d2951f8b7f1f0c1d2c8f", 
+    };
+
+    fetch("http://localhost:4000/api/clinic", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(clinicData),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        navigate("/clinic");
+      })
+      .catch((error) => console.error("Error creating clinic:", error));
+  };
+
   return (
-    <>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpen}
-        startIcon={<MdAdd />}
-        className="flex items-center space-x-2"
-      >
-        New Clinic
-      </Button>
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Enter Details
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
+    <div className="flex-1 mt-20 flex flex-col lg:ml-64 p-3">
+      <div className="p-4 w-full mx-auto">
+        <Link to="/clinic" className="text-2xl font-bold text-blue-600 mb-4">
+          Create New Clinic
+        </Link>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm text-blue-600 font-medium mb-1">
+              Name:
+            </label>
+            <input
+              type="text"
+              value={clinic.name}
+              onChange={(e) => setClinic({ ...clinic, name: e.target.value })}
+              className="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-blue-600 mb-1">
+              Phone Number:
+            </label>
+            <input
+              type="tel"
+              value={clinic.phone_number}
+              onChange={(e) =>
+                setClinic({ ...clinic, phone_number: e.target.value })
+              }
+              className="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-blue-600 font-medium mb-1">
+              Consultation Fee:
+            </label>
+            <input
+              type="number"
+              value={clinic.consultation_fee}
+              onChange={(e) =>
+                setClinic({
+                  ...clinic,
+                  consultation_fee: parseInt(e.target.value),
+                })
+              }
+              className="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-blue-600 font-medium mb-1">
+              Address:
+            </label>
+            <textarea
+              value={clinic.address}
+              onChange={(e) =>
+                setClinic({ ...clinic, address: e.target.value })
+              }
+              className="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-blue-500"
+            ></textarea>
+          </div>
+
+          <div className="flex flex-col items-center space-y-4">
+            <h1 className="text-xl font-bold text-blue-600">
+              Profile Image Upload
+            </h1>
+            <div className="max-h-fit border w-full overflow-hidden bg-gray-100 flex items-center justify-center">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Profile Preview"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-gray-500">No image selected</span>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+              id="image-upload"
+            />
+            <label
+              htmlFor="image-upload"
+              className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700"
+            >
+              Choose Image
+            </label>
+            {selectedImage && (
+              <button
+                onClick={handleRemoveImage}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Remove Image
+              </button>
+            )}
+          </div>
+
+          {DAYS.map((day) => (
+            <div key={day} className="bg-white rounded-md shadow-2xl p-4 my-4">
+              <div className="flex justify-between border-b border-blue-500 pb-2">
+                <p className="text-blue-600 font-medium">{day}</p>
+                <Switch
+                  checked={daysChecked[day]}
+                  onChange={(e) => handleDayToggle(day, e.target.checked)}
+                  inputProps={{ "aria-label": `Toggle ${day}` }}
+                />
+              </div>
+              {daysChecked[day] && (
+                <>
+                  <div className="flex gap-6 mt-4">
+                    <p className="text-blue-600 font-medium">Session 1:</p>
+                    <Switch
+                      checked={sessionsChecked[day].session1}
+                      onChange={(e) =>
+                        handleSessionToggle(day, "session1", e.target.checked)
+                      }
+                      inputProps={{ "aria-label": `Session 1 ${day}` }}
+                    />
+                  </div>
+                  <div className="flex justify-between my-4">
+                    <div>
+                      <h1 className="text-blue-600 font-medium">Start Time</h1>
+                      <p className="text-blue-600 font-medium">12:24 am</p>
+                    </div>
+                    <div>
+                      <h1 className="text-blue-600 font-medium">End Time</h1>
+                      <p className="text-blue-600 font-medium">12:26 pm</p>
+                    </div>
+                  </div>
+                  <button className="bg-blue-700 text-white p-3 font-medium rounded-md">
+                    Apply Session 1 to All
+                  </button>
+
+                  <div className="flex gap-6 mt-4">
+                    <h1 className="text-blue-600 font-medium">Session 2:</h1>
+                    <Switch
+                      checked={sessionsChecked[day].session2}
+                      onChange={(e) =>
+                        handleSessionToggle(day, "session2", e.target.checked)
+                      }
+                      inputProps={{ "aria-label": `Session 2 ${day}` }}
+                    />
+                  </div>
+                  <button className="bg-blue-700 text-white p-3 font-medium rounded-md mt-2">
+                    Apply Session 2 to All
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
           >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Name"
-            name="name"
-            value={clinicDetails.name}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Phone Number"
-            name="phone_number"
-            value={clinicDetails.phone_number}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Address"
-            name="address"
-            value={clinicDetails.address}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Consultation Fee"
-            name="consultation_fee"
-            value={clinicDetails.consultation_fee}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleSave}>
-            Save
-          </Button>
-        </DialogActions>
-      </BootstrapDialog>
-    </>
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
-export default CustomizedDialogs;
+export default NewClinic;

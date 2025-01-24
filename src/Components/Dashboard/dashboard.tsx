@@ -1,4 +1,4 @@
-import image1 from "../../assets/gfdg.jpg";
+import image1 from "../../assets/download (1).jpeg";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
@@ -33,13 +33,14 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-          <div>
+          <div className="">
             <img
               src={image1}
               alt="Vaccination Logo"
-              className="w-full  object-cover"
+              className="w-full h-72 object-cover "
             />
           </div>
+
           <div className="text-center text-white text-2xl p-2 bg-blue-300">
             <p className="font-medium p-2 rounded-md">Welcome to Dashboard</p>
           </div>

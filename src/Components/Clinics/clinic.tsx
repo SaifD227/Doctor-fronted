@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CustomizedDialogs from "./NewClinic";
 import Patient from "../Patients/patient";
+import { MdAdd } from "react-icons/md";
 
 interface ClinicData {
   _id: string;
@@ -103,8 +103,7 @@ const Clinic = () => {
                   <div className="flex items-center">
                     patients
                     <span className="bg-blue-500 rounded-3xl text-white px-2">
-                    {Patient.length}
-
+                      {Patient.length}
                     </span>
                   </div>
                 </button>
@@ -121,10 +120,15 @@ const Clinic = () => {
         </div>
       )}
 
-     
       <ToastContainer />
-      <div className="flex justify-end mt-40">
-        <CustomizedDialogs />
+      <div className="flex justify-end">
+        <Link
+          to="/newClinic"
+          className="flex items-center bg-blue-500 text-white rounded-lg py-2 px-4 shadow-lg hover:bg-blue-600 transition duration-300 mt-40"
+        >
+          <MdAdd className="mr-2 text-xl" />
+          <span className="text-sm font-semibold">New Clinic</span>
+        </Link>
       </div>
     </div>
   );
