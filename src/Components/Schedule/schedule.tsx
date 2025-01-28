@@ -73,7 +73,7 @@ const Schedule: React.FC = () => {
           </div>
         </div>
       ))}
-      <BCGDialog open={openDialog} onClose={handleCloseDialog} doseId="someDoseId" />
+      <BCGDialog open={openDialog} onClose={handleCloseDialog}  />
       <div className="flex flex-col justify-end gap-6 mt-10">
         <div className="bg-blue-600 rounded-full text-white w-16 h-16 flex items-center justify-center text-4xl ml-auto">
           <FaPlus />

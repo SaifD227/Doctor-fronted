@@ -22,14 +22,15 @@ interface Patient {
 const Patient = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>(""); 
 
   useEffect(() => {
-    fetchPatients();
+    fetchPatients("");
   }, []);
 
-  const fetchPatients = async () => {
+  const fetchPatients = async (searchTerm: string = "") => {
     try {
-      const response = await fetch("http://localhost:4000/api/patient");
+      const response = await fetch(`http://localhost:4000/api/patient${searchTerm ? `/search?patientName=${searchTerm}` : ''}`);
       const data = await response.json();
       setPatients(data);
       setLoading(false);
@@ -71,7 +72,12 @@ const Patient = () => {
               type="text"
               placeholder="Search"
               className="focus:outline-none focus:border-blue-500 py-2 px-4 w-full"
-            />
+              value={searchTerm} 
+              onChange={(e) => {
+                setSearchTerm(e.target.value); 
+                fetchPatients(e.target.value); 
+              }}
+          />
             <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 mx-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
               Search
             </button>
